@@ -1,5 +1,7 @@
 package ru.otus.example;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class Main {
             example.add(i);
         }
 
-        System.out.println(example);
+        System.out.println(Lists.reverse(example));
 
     }
 

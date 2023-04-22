@@ -1,18 +1,37 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
-group 'ru.otus.example'
-version '0.0.1'
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
 
 repositories {
     mavenCentral()
 }
 
+group 'ru.otus.example'
+version '0.0.1'
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    implementation("com.google.guava:guava:31.1-jre")
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+
 }
+
+shadowJar {
+    archiveBaseName.set('fat-jar-file')
+    archiveVersion.set('0.0.2')
+    archiveClassifier.set('')
+    manifest {
+        attributes 'Main-Class': 'ru.otus.example.Main'
+    }
+}
+
+tasks.build.dependsOn tasks.shadowJar
 
 test {
     useJUnitPlatform()
